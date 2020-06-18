@@ -23,7 +23,7 @@
 			<td>${ale.id}</td>
 			<td>${ale.nome}</td>
 			<td><a href="new">Assegna Digimon</a></td>
-			<td><a href="">Lista Digimon</a></td>
+			<td><a href="lol">Lista Digimon</a></td>
 			<td><a href="deleteAle">Elimina Allenatore</a></td>
 		</tr>
 		</c:forEach>
