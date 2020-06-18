@@ -13,6 +13,7 @@
 <a href="new">Aggiungi Digimon</a>
 <table border="1">
 		<tr>
+		
 			<th>ID Allenatore</th>
 			<th>Nome</th>
 			<th>Vedi Digimons</th>
