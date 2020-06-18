@@ -3,6 +3,7 @@ package it.dst.digimon.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import it.dst.digimon.model.Allenatore;
 import it.dst.digimon.model.Digimon;
 import it.dst.digimon.service.DigimonService;
-
+@Controller
 public class DigimonController {
 	@Autowired
 	private DigimonService service;
@@ -54,13 +55,6 @@ public class DigimonController {
 		return "redirect:/";
 	}
 
-//	@RequestMapping("/")
-//	public ModelAndView home() {
-//		List<Allenatore> listAllenatore = service.listAllAle();
-//		ModelAndView mav = new ModelAndView("index");
-//		mav.addObject("listAllenatore", listAllenatore);
-//		return mav;
-//	}
 
 	@RequestMapping("/newDigimon")
 	public String newDigimonForm(Model model) {
@@ -102,4 +96,21 @@ public class DigimonController {
 		model.addObject("lista", listaDigimon);
 		return model;
 	}
+	@RequestMapping("/aggiungi")
+	public ModelAndView aggiungiDigimon(@RequestParam Long id, @RequestParam Long idAle) {
+		ModelAndView model = new ModelAndView("redirect:/");
+		Allenatore allenatore = service.getAle(idAle);
+	    Digimon digimon = service.get(id);
+	    allenatore.getListaDigimon().add(digimon);
+	    service.saveAle(allenatore);
+		return model;
+	}
+	@RequestMapping("/listaDigimon")
+	public ModelAndView viewDigimonForm() {
+		ModelAndView model = new ModelAndView("mostra_digimon");
+		List<Digimon>listaDigimon = service.listAll();
+		model.addObject("lista", listaDigimon);
+		return model;
+	}
+	
 }
