@@ -66,7 +66,7 @@ public class DigimonController {
 	public String newDigimonForm(Model model) {
 		Digimon digimon = new Digimon();
 		model.addAttribute("digimon", digimon);
-		return "nuovoDigimon";
+		return "aggiungiDigimon";
 	}
 
 	@RequestMapping(value = "/saveDigimon", method = RequestMethod.POST)
@@ -93,5 +93,13 @@ public class DigimonController {
 	@RequestMapping(value = "/indietro", method = RequestMethod.POST)
 	public String indietro() {
 		return "redirect:/";
+	}
+	@RequestMapping("/assegna")
+	public ModelAndView assegnaDigimonForm(@RequestParam Long id) {
+		ModelAndView model = new ModelAndView("assegna_digimon");
+		List<Digimon>listaDigimon = service.listAll();
+		model.addObject("idAle", id);
+		model.addObject("lista", listaDigimon);
+		return model;
 	}
 }

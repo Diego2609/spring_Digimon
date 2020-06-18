@@ -9,8 +9,8 @@
 </head>
 <body>
 
-<a href="newAle">Agggiungi Allenatore</a>
-<a href="new">Aggiungi Digimon</a>
+<a href="new">Agggiungi Allenatore</a>
+<a href="newDigimon">Aggiungi Digimon</a>
 <table border="1">
 		<tr>
 		
@@ -23,9 +23,10 @@
 		<tr>
 			<td>${ale.id}</td>
 			<td>${ale.nome}</td>
-			<td><a href="new">Assegna Digimon</a></td>
+			<td><a href="edit?id=${ale.id}">Modifica Allenatore</a></td>
 			<td><a href="lol">Lista Digimon</a></td>
-			<td><a href="deleteAle">Elimina Allenatore</a></td>
+			<td><a href="assegna?id=${ale.id}">Assegna Digimon</a></td>
+			<td><a href="delete?id=${ale.id}">Elimina Allenatore</a></td>
 		</tr>
 		</c:forEach>
 	</table>
