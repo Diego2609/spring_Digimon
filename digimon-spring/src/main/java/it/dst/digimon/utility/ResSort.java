@@ -14,9 +14,9 @@ public class ResSort implements Strategy {
 
 			@Override
 			public int compare(Digimon p1, Digimon p2) {
-				if (p1.getRes() > p2.getRes()) {
+				if (p1.getRes() < p2.getRes()) {
 					return 1;
-				} else if (p1.getRes() < p2.getRes()) {
+				} else if (p1.getRes() > p2.getRes()) {
 					return -1;
 				}
 

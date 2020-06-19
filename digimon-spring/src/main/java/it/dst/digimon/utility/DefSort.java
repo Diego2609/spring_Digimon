@@ -14,9 +14,9 @@ public class DefSort implements Strategy {
 
 			@Override
 			public int compare(Digimon p1, Digimon p2) {
-				if (p1.getDef() > p2.getDef()) {
+				if (p1.getDef() < p2.getDef()) {
 					return 1;
-				} else if (p1.getDef() < p2.getDef()) {
+				} else if (p1.getDef() > p2.getDef()) {
 					return -1;
 				}
 

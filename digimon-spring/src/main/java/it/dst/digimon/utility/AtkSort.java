@@ -14,9 +14,9 @@ public class AtkSort implements Strategy{
 
 			@Override
 			public int compare(Digimon p1, Digimon p2) {
-				 if (p1.getAtk() > p2.getAtk())
+				 if (p1.getAtk() < p2.getAtk())
 				        return 1;
-				      else if (p1.getAtk() < p2.getAtk())
+				      else if (p1.getAtk() > p2.getAtk())
 				        return -1;
 
 				      return 0;

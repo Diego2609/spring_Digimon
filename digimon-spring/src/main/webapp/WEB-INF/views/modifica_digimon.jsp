@@ -1,21 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
-	"http://www.w3.org/TR/html4/loose.dtd">
+
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Modifica prodotto</title>
+<title>modifica digimon</title>
 </head>
 <body>
 	<div align="center">
-		<h2>Modifica allenatore</h2>
-		<form:form action="save" method="post" modelAttribute="allenatore">
-			<table border="0" cellpadding="5">
+		<h2>Modifica digimon</h2>
+		<form:form action="saveDigimon" method="post" modelAttribute="digimon">
+			<table>
 				<tr>
 					<td>ID:</td>
-					<td>${prodotto.id}<form:hidden path="id" />
+					<td>${digimon.id}<form:hidden path="id" />
 					</td>
 				</tr>
 				<tr>
@@ -23,6 +23,22 @@
 					<td><form:input path="nome" /></td>
 				</tr>
 				<tr>
+					<td>Attacco:</td>
+					<td><form:input path="atk" /></td>
+				</tr>
+				<tr>
+					<td>Difesa:</td>
+					<td><form:input path="def" /></td>
+				</tr>
+				<tr>
+					<td>Resistenza:</td>
+					<td><form:input path="res" /></td>
+				</tr>
+				<tr>
+					<td>Evoluzione:</td>
+					<td><form:input path="evoluzione" /></td>
+				</tr>
+
 				<tr>
 					<td colspan="2"><input type="submit" value="Modifica"></td>
 				</tr>
@@ -35,5 +51,6 @@
 			<input type="submit" value="Torna Indietro">
 		</form>
 	</div>
+
 </body>
 </html>
