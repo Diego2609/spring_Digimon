@@ -44,7 +44,7 @@ public class DigimonController {
 		service.saveAle(allenatore);
 		return "redirect:/";
 	}
-
+	
 	@RequestMapping("/edit")
 	public ModelAndView editAllenatoreForm(@RequestParam long id) {
 		ModelAndView model = new ModelAndView("modificaAllenatore");

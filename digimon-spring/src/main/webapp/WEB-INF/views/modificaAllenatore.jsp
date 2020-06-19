@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Modifica prodotto</title>
+<title>Modifica Allenatore</title>
 </head>
 <body>
 	<div align="center">
@@ -15,14 +15,14 @@
 			<table border="0" cellpadding="5">
 				<tr>
 					<td>ID:</td>
-					<td>${prodotto.id}<form:hidden path="id" />
+					<td>${allenatore.id}<form:hidden path="id" />
 					</td>
 				</tr>
 				<tr>
 					<td>Nome:</td>
 					<td><form:input path="nome" /></td>
 				</tr>
-				<tr>
+				
 				<tr>
 					<td colspan="2"><input type="submit" value="Modifica"></td>
 				</tr>

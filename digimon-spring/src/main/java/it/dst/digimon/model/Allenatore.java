@@ -71,6 +71,10 @@ public class Allenatore {
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		return "Allenatore [id=" + id + ", nome=" + nome + ", listaDigimon=" + listaDigimon + "]";
+	}
 	
 	
 	
