@@ -143,5 +143,11 @@ public class DigimonController {
 		model.addObject("lista", lista);
 		return model;
 	}
-
+	@RequestMapping("/listaDigimonAll")
+	public ModelAndView viewDigimonAllForm(@RequestParam Long id) {
+		ModelAndView model = new ModelAndView("mostra_digimon_allenatore");
+		Allenatore allenatore = service.getAle(id);
+		model.addObject("lista", allenatore.getListaDigimon());
+		return model;
+		}
 }
