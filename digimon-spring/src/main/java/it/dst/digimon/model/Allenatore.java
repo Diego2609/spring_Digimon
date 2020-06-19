@@ -36,6 +36,41 @@ public class Allenatore {
 	public void setListaDigimon(List<Digimon> listaDigimon) {
 		this.listaDigimon = listaDigimon;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((listaDigimon == null) ? 0 : listaDigimon.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Allenatore other = (Allenatore) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (listaDigimon == null) {
+			if (other.listaDigimon != null)
+				return false;
+		} else if (!listaDigimon.equals(other.listaDigimon))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		return true;
+	}
 	
 	
 	
