@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div align="center">
 <table border="1">
 		<tr>
 		
@@ -30,6 +31,11 @@
 			<td><a href="aggiungi?id=${dig.id}&idAle=${idAle}">Aggiungi</a></td>
 			</tr>
 		</c:forEach>
-	</table>
+	</table> <br><br>
+	<form action="indietro" method="post">
+		<input type="submit" value="Torna Indietro">
+	</form>
+	</div>
+	
 </body>
 </html>

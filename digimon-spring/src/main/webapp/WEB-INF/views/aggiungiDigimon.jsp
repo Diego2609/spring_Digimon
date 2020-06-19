@@ -8,6 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Aggiungi Digimon</title>
 </head>
+<div align="center">
 <body>
 	<form:form action="saveDigimon" method="post" modelAttribute="digimon">
 		<table border="0" cellpadding="5">
@@ -43,4 +44,5 @@
 		<input type="submit" value="Torna Indietro">
 	</form>
 </body>
+</div>
 </html>

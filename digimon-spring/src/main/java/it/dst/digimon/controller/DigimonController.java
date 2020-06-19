@@ -44,6 +44,13 @@ public class DigimonController {
 		service.saveAle(allenatore);
 		return "redirect:/";
 	}
+	@RequestMapping(value = "/saveMod", method = RequestMethod.POST)
+	public String saveAllenatoreModificato(@ModelAttribute("allenatore") Allenatore allenatore) {
+		Allenatore vecchio = service.getAle(allenatore.getId());
+		allenatore.setListaDigimon(vecchio.getListaDigimon());
+		service.saveAle(allenatore);
+		return "redirect:/";
+	}
 	
 	@RequestMapping("/edit")
 	public ModelAndView editAllenatoreForm(@RequestParam long id) {
