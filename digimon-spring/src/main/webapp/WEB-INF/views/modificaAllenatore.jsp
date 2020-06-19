@@ -17,6 +17,7 @@
 					<td>ID:</td>
 					<td>${allenatore.id}<form:hidden path="id" />
 					</td>
+					
 				</tr>
 				<tr>
 					<td>Nome:</td>

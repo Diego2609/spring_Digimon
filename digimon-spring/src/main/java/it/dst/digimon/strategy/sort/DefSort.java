@@ -1,4 +1,4 @@
-package it.dst.digimon.utility;
+package it.dst.digimon.strategy.sort;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -6,7 +6,7 @@ import java.util.List;
 
 import it.dst.digimon.model.Digimon;
 
-public class DefSort implements Strategy {
+public class DefSort implements Strategy<Digimon> {
 
 	@Override
 	public void sort(List<Digimon> lista) {

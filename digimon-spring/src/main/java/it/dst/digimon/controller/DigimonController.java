@@ -13,21 +13,26 @@ import org.springframework.web.servlet.ModelAndView;
 
 import it.dst.digimon.model.Allenatore;
 import it.dst.digimon.model.Digimon;
+import it.dst.digimon.service.AllenatoreService;
 import it.dst.digimon.service.DigimonService;
-import it.dst.digimon.utility.AtkSort;
-import it.dst.digimon.utility.Context;
-import it.dst.digimon.utility.DefSort;
-import it.dst.digimon.utility.ResSort;
+import it.dst.digimon.strategy.sort.AtkSort;
+import it.dst.digimon.strategy.sort.Context;
+import it.dst.digimon.strategy.sort.DefSort;
+import it.dst.digimon.strategy.sort.ResSort;
 
 @Controller
 public class DigimonController {
+
 	@Autowired
-	private DigimonService service;
+	private DigimonService digimonService;
+
+	@Autowired
+	private AllenatoreService allenatoreService;
 
 	@RequestMapping("/")
 	public ModelAndView home() {
-		List<Allenatore> listAllenatore = service.listAllAle();
 		ModelAndView mav = new ModelAndView("index");
+		List<Allenatore> listAllenatore = allenatoreService.listAll();
 		mav.addObject("listAllenatore", listAllenatore);
 		return mav;
 	}
@@ -37,25 +42,27 @@ public class DigimonController {
 		Allenatore allenatore = new Allenatore();
 		model.addAttribute("allenatore", allenatore);
 		return "nuovoAllenatore";
+//		return new ModelAndView("nuovoAllenatore");
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveAllenatore(@ModelAttribute("allenatore") Allenatore allenatore) {
-		service.saveAle(allenatore);
+		allenatoreService.save(allenatore);
 		return "redirect:/";
 	}
+
 	@RequestMapping(value = "/saveMod", method = RequestMethod.POST)
 	public String saveAllenatoreModificato(@ModelAttribute("allenatore") Allenatore allenatore) {
-		Allenatore vecchio = service.getAle(allenatore.getId());
+		Allenatore vecchio = allenatoreService.get(allenatore.getId());
 		allenatore.setListaDigimon(vecchio.getListaDigimon());
-		service.saveAle(allenatore);
+		allenatoreService.save(allenatore);
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping("/edit")
 	public ModelAndView editAllenatoreForm(@RequestParam long id) {
 		ModelAndView model = new ModelAndView("modificaAllenatore");
-		Allenatore allenatore = service.getAle(id);
+		Allenatore allenatore = allenatoreService.get(id);
 		model.addObject("allenatore", allenatore);
 
 		return model;
@@ -63,7 +70,7 @@ public class DigimonController {
 
 	@RequestMapping("/delete")
 	public String deleteAllenatoreForm(@RequestParam long id) {
-		service.deleteAle(id);
+		allenatoreService.delete(id);
 		return "redirect:/";
 	}
 
@@ -76,14 +83,14 @@ public class DigimonController {
 
 	@RequestMapping(value = "/saveDigimon", method = RequestMethod.POST)
 	public String saveDigimon(@ModelAttribute("digimon") Digimon digimon) {
-		service.save(digimon);
+		digimonService.save(digimon);
 		return "redirect:/";
 	}
 
 	@RequestMapping("/editDigimon")
 	public ModelAndView editProdottoForm(@RequestParam long id) {
 		ModelAndView model = new ModelAndView("modifica_digimon");
-		Digimon digimon = service.get(id);
+		Digimon digimon = digimonService.get(id);
 		model.addObject("digimon", digimon);
 
 		return model;
@@ -91,7 +98,7 @@ public class DigimonController {
 
 	@RequestMapping("/deleteDigimon")
 	public String deleteDigimonForm(@RequestParam long id) {
-		service.delete(id);
+		digimonService.delete(id);
 		return "redirect:/";
 	}
 
@@ -103,7 +110,7 @@ public class DigimonController {
 	@RequestMapping("/assegna")
 	public ModelAndView assegnaDigimonForm(@RequestParam Long id) {
 		ModelAndView model = new ModelAndView("assegna_digimon");
-		List<Digimon> listaDigimon = service.listAll();
+		List<Digimon> listaDigimon = digimonService.listAll();
 		model.addObject("idAle", id);
 		model.addObject("lista", listaDigimon);
 		return model;
@@ -112,17 +119,17 @@ public class DigimonController {
 	@RequestMapping("/aggiungi")
 	public ModelAndView aggiungiDigimon(@RequestParam Long id, @RequestParam Long idAle) {
 		ModelAndView model = new ModelAndView("redirect:/");
-		Allenatore allenatore = service.getAle(idAle);
-		Digimon digimon = service.get(id);
+		Allenatore allenatore = allenatoreService.get(idAle);
+		Digimon digimon = digimonService.get(id);
 		allenatore.getListaDigimon().add(digimon);
-		service.saveAle(allenatore);
+		allenatoreService.save(allenatore);
 		return model;
 	}
 
 	@RequestMapping("/listaDigimon")
 	public ModelAndView viewDigimonForm() {
 		ModelAndView model = new ModelAndView("mostra_digimon");
-		List<Digimon> listaDigimon = service.listAll();
+		List<Digimon> listaDigimon = digimonService.listAll();
 		model.addObject("lista", listaDigimon);
 		return model;
 	}
@@ -130,31 +137,30 @@ public class DigimonController {
 	@RequestMapping("/sortDigimon")
 	public ModelAndView ordinamentoDigimon(@RequestParam int ordinamento) {
 		ModelAndView model = new ModelAndView("mostra_digimon");
-		List<Digimon> lista = service.listAll();
+		List<Digimon> lista = digimonService.listAll();
+		Context<Digimon> ctx = new Context<>(new AtkSort());
 		switch (ordinamento) {
-
 		case 0:
-			Context ctx = new Context(new AtkSort());
-			ctx.ordinamento(lista);
+			ctx.changeStrategy(new AtkSort());
 			break;
 		case 1:
-			Context ctx1 = new Context(new DefSort());
-			ctx1.ordinamento(lista);
+			ctx.changeStrategy(new DefSort());
 			break;
 		case 2:
-			Context ctx2 = new Context(new ResSort());
-			ctx2.ordinamento(lista);
+			ctx.changeStrategy(new ResSort());
 			break;
 
 		}
+		ctx.ordinamento(lista);
 		model.addObject("lista", lista);
 		return model;
 	}
+
 	@RequestMapping("/listaDigimonAll")
 	public ModelAndView viewDigimonAllForm(@RequestParam Long id) {
 		ModelAndView model = new ModelAndView("mostra_digimon_allenatore");
-		Allenatore allenatore = service.getAle(id);
+		Allenatore allenatore = allenatoreService.get(id);
 		model.addObject("lista", allenatore.getListaDigimon());
 		return model;
-		}
+	}
 }
